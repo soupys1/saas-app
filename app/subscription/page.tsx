@@ -1,8 +1,11 @@
+import { PricingTable } from '@clerk/nextjs'
 import React from 'react'
 
 const Subscription = () => {
   return (
-    <div>Subscription</div>
+    <main className='flex justify-center items-center'>
+        <PricingTable/>
+    </main>
   )
 }
 
