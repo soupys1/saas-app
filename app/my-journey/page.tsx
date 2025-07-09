@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { currentUser } from "@clerk/nextjs/server";
+// import { currentUser } from "@clerk/nextjs/server"; // Removed Clerk
 import { redirect } from "next/navigation";
 import {
   getUserCompanions,
@@ -15,9 +15,16 @@ import Image from "next/image";
 import CompanionsList from "@/components/CompanionsList";
 
 const Profile = async () => {
-  const user = await currentUser();
+  // TODO: Replace with Firebase user logic
+  const user = {
+    id: 'placeholder-user-id',
+    firstName: 'User',
+    lastName: 'Name',
+    emailAddresses: [{ emailAddress: 'user@example.com' }],
+    imageUrl: '/images/logo.svg',
+  };
 
-  if (!user) redirect("/sign-in");
+  // if (!user) redirect("/sign-in");
 
   const companions = await getUserCompanions(user.id);
   const sessionHistory = await getUserSessions(user.id);

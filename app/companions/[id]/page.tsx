@@ -1,5 +1,5 @@
 import {getCompanion} from "@/lib/actions/companion.actions";
-import {currentUser} from "@clerk/nextjs/server";
+// import {currentUser} from "@clerk/nextjs/server"; // Removed Clerk
 import {redirect} from "next/navigation";
 import {getSubjectColor} from "@/lib/utils";
 import Image from "next/image";
@@ -12,11 +12,13 @@ interface CompanionSessionPageProps {
 const CompanionSession = async ({ params }: CompanionSessionPageProps) => {
     const { id } = await params;
     const companion = await getCompanion(id);
-    const user = await currentUser();
+    // TODO: Replace with Firebase user logic
+    const user = { firstName: 'User', imageUrl: '/images/logo.svg' };
 
     const { name, subject, title, topic, duration } = companion;
 
-    if(!user) redirect('/sign-in');
+    // TODO: Replace with Firebase auth check
+    // if(!user) redirect('/sign-in');
     if(!name) redirect('/companions')
 
     return (

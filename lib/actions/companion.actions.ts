@@ -1,11 +1,12 @@
 'use server';
 
-import {auth} from "@clerk/nextjs/server";
+// import {auth} from "@clerk/nextjs/server"; // Removed Clerk
 import {createSupabaseClient} from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 
 export const createCompanion = async (formData: CreateCompanion) => {
-    const { userId: author } = await auth();
+    // TODO: Replace with Firebase user logic
+    const author = 'placeholder-user-id';
     const supabase = createSupabaseClient();
 
     const { data, error } = await supabase
@@ -55,7 +56,8 @@ export const getCompanion = async (id: string) => {
 }
 
 export const addToSessionHistory = async (companionId: string) => {
-    const { userId } = await auth();
+    // TODO: Replace with Firebase user logic
+    const userId = 'placeholder-user-id';
     const supabase = createSupabaseClient();
     const { data, error } = await supabase.from('session_history')
         .insert({
@@ -108,18 +110,21 @@ export const getUserCompanions = async (userId: string) => {
 }
 
 export const newCompanionPermissions = async () => {
-    const { userId, has } = await auth();
+    // TODO: Replace with Firebase user logic
+    const userId = 'placeholder-user-id';
+    // const has = () => false; // Placeholder for plan/feature check
     const supabase = createSupabaseClient();
 
-    let limit = 0;
+    let limit = 3; // Default limit for free users
 
-    if(has({ plan: 'pro' })) {
-        return true;
-    } else if(has({ feature: "3_companion_limit" })) {
-        limit = 3;
-    } else if(has({ feature: "10_companion_limit" })) {
-        limit = 10;
-    }
+    // TODO: Implement plan/feature check with Firebase if needed
+    // if(has({ plan: 'pro' })) {
+    //     return true;
+    // } else if(has({ feature: "3_companion_limit" })) {
+    //     limit = 3;
+    // } else if(has({ feature: "10_companion_limit" })) {
+    //     limit = 10;
+    // }
 
     const { data, error } = await supabase
         .from('companions')
@@ -139,7 +144,8 @@ export const newCompanionPermissions = async () => {
 
 // Bookmarks
 export const addBookmark = async (companionId: string, path: string) => {
-  const { userId } = await auth();
+  // TODO: Replace with Firebase user logic
+  const userId = 'placeholder-user-id';
   if (!userId) return;
   const supabase = createSupabaseClient();
   const { data, error } = await supabase.from("bookmarks").insert({
@@ -156,7 +162,8 @@ export const addBookmark = async (companionId: string, path: string) => {
 };
 
 export const removeBookmark = async (companionId: string, path: string) => {
-  const { userId } = await auth();
+  // TODO: Replace with Firebase user logic
+  const userId = 'placeholder-user-id';
   if (!userId) return;
   const supabase = createSupabaseClient();
   const { data, error } = await supabase
