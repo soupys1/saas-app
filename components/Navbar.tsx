@@ -1,13 +1,9 @@
-'use client';
-
 import Link from "next/link";
 import Image from "next/image";
-import { useAuth } from "@/lib/auth-context";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import NavItems from "@/components/NavItems";
 
 const Navbar = () => {
-    const { user, signOutUser } = useAuth();
-
     return (
         <nav className="navbar">
             <Link href="/">
@@ -22,23 +18,14 @@ const Navbar = () => {
             </Link>
             <div className="flex items-center gap-8">
                 <NavItems />
-                {!user ? (
-                    <Link href="/sign-in">
+                <SignedOut>
+                    <SignInButton>
                         <button className="btn-signin">Sign In</button>
-                    </Link>
-                ) : (
-                    <div className="flex items-center gap-4">
-                        <span className="text-sm text-gray-600">
-                            {user.email}
-                        </span>
-                        <button 
-                            onClick={signOutUser}
-                            className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
-                        >
-                            Sign Out
-                        </button>
-                    </div>
-                )}
+                    </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
             </div>
         </nav>
     )

@@ -1,12 +1,10 @@
-export const dynamic = "force-dynamic";
-
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-// import { currentUser } from "@clerk/nextjs/server"; // Removed Clerk
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import {
   getUserCompanions,
@@ -17,16 +15,9 @@ import Image from "next/image";
 import CompanionsList from "@/components/CompanionsList";
 
 const Profile = async () => {
-  // TODO: Replace with Firebase user logic
-  const user = {
-    id: 'placeholder-user-id',
-    firstName: 'User',
-    lastName: 'Name',
-    emailAddresses: [{ emailAddress: 'user@example.com' }],
-    imageUrl: '/images/logo.svg',
-  };
+  const user = await currentUser();
 
-  // if (!user) redirect("/sign-in");
+  if (!user) redirect("/sign-in");
 
   const companions = await getUserCompanions(user.id);
   const sessionHistory = await getUserSessions(user.id);
