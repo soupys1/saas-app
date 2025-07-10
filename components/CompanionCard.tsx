@@ -33,13 +33,13 @@ const CompanionCard = ({
     }
   };
   return (
-    <article className="companion-card" style={{ backgroundColor: color }}>
+    <article className="companion-card bg-white">
       <div className="flex justify-between items-center">
         <div className="subject-badge">{subject}</div>
         <button className="companion-bookmark" onClick={handleBookmark}>
           <Image
             src={
-              bookmarked ? "/icons/bookmark-filled.svg" : "/icons/bookmark.svg"
+              bookmarked ? "/icons/bookmark-filled-purple.svg" : "/icons/bookmark-purple.svg"
             }
             alt="bookmark"
             width={12.5}
@@ -52,7 +52,7 @@ const CompanionCard = ({
       <p className="text-sm">{topic}</p>
       <div className="flex items-center gap-2">
         <Image
-          src="/icons/clock.svg"
+          src="/icons/clock-purple.svg"
           alt="duration"
           width={13.5}
           height={13.5}
