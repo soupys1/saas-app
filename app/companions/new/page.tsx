@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import CompanionForm from "@/components/CompanionForm";
 // import {auth} from "@clerk/nextjs/server"; // Removed Clerk
 import {redirect} from "next/navigation";
